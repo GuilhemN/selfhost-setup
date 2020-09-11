@@ -2,7 +2,13 @@
 
 ## Introduction
 
-I use Docker in order to simplify the maintenance of these services and to isolate them.
+I wanted to get rid of several third-party services so I started to self host some of them:
+
+- Nextcloud to have a self hosted drive (with end-to-end encryption) and to manage my RSS feeds through Nextcloud News
+- Etesync to sync my calendar and contacts (with end-to-end encryption)
+- RSS-Bridge to fetch public news from Facebook without having an account
+
+I use Docker in order to simplify the maintenance of the services I self host and to isolate them.
 
 The different apps are executed behind a nginx reverse proxy (launched using `docker-compose up -d` in the root folder) which automatically creates Let's Encrypt
 certificates and renew them.
