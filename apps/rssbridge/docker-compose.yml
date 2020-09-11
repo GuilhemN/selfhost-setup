@@ -1,0 +1,18 @@
+version: '2'
+services:
+  rss-bridge:
+    volumes:
+       - ./config.ini.php:/app/config.ini.php
+    image: rssbridge/rss-bridge:latest
+    networks:
+      - nginx-proxy
+    environment:
+      - VIRTUAL_HOST=rssbridge.mydomain.fr
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=rssbridge.mydomain.fr
+      - LETSENCRYPT_EMAIL=contact@mydomain.fr
+ 
+networks:
+  nginx-proxy:
+    external:
+      name: nginx-proxy

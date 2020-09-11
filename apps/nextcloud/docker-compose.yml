@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+
+  db:
+    image: mariadb
+    container_name: nextcloud-mariadb
+    networks:
+      - nextcloud_network
+
+    volumes:
+      - db:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - MYSQL_ROOT_PASSWORD=firstlongandsecurepassword
+      - MYSQL_PASSWORD=longandsecurepassword
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+    restart: unless-stopped
+
+  nextcloud:
+    build:
+       context: docker # add cron support as I use Nextcloud News 
+    container_name: nextcloud-app
+    networks:
+      - default
+      - nextcloud_network
+    depends_on:
+      - db
+    volumes:
+      - nextcloud:/var/www/html
+      - ./nextcloud/config:/var/www/html/config
+      - ./nextcloud/custom_apps:/var/www/html/custom_apps
+      - ./nextcloud/data:/var/www/html/data
+      - ./nextcloud/themes:/var/www/html/themes
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - VIRTUAL_HOST=nextcloud.mydomain.fr
+      - LETSENCRYPT_HOST=nextcloud.mydomain.fr
+      - LETSENCRYPT_EMAIL=contact@mydomain.fr
+    restart: unless-stopped
+
+volumes:
+  nextcloud:
+  db:
+
+
+networks:
+  default:
+     external:
+        name: nginx-proxy
+  nextcloud_network:

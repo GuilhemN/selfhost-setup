@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  etesync:
+    image: victorrds/etesync:0.3.0-alpine
+    restart: on-failure
+    volumes:
+      - './data/:/data'
+    environment:
+      - VIRTUAL_HOST=etesync.mydomain.fr
+      - VIRTUAL_PORT=3735
+      - LETSENCRYPT_HOST=etesync.mydomain.fr
+      - LETSENCRYPT_EMAIL=contact@mydomain.fr
+
+      - SERVER=http-socket
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
