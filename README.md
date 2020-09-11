@@ -19,5 +19,8 @@ Each app is then launched separately using `docker up -d` in their folder.
 
 You should first install Docker (see https://docs.docker.com/get-docker/) and Docker Compose (see https://docs.docker.com/compose/install/).
 
-Then clone this repository, update the secrets and the domain names in each `apps/*/docker-compose.yml` before launching the different
-components of this repository using `docker-compose up -d` in each directory.
+Then clone this repository and update the secrets and the domain names in each `apps/*/docker-compose.yml`.
+
+You will then have to create a Docker network to allow the different apps to communicate with the nginx reverse proxy: `docker network create nginx-proxy`.
+
+Finally, launch the different components of this repository using `docker-compose up -d` in each directory.
