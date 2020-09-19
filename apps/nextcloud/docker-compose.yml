@@ -38,6 +38,7 @@ services:
       - VIRTUAL_HOST=nextcloud.mydomain.fr
       - LETSENCRYPT_HOST=nextcloud.mydomain.fr
       - LETSENCRYPT_EMAIL=contact@mydomain.fr
+      - OVERWRITEPROTOCOL=https
     restart: unless-stopped
 
 volumes:
